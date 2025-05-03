@@ -1,5 +1,5 @@
 import styles from "../styles/pages/SharedPage.module.scss";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import Item from "../interfaces/Item.ts";
 import BillList from "../components/BillList.tsx";
@@ -10,7 +10,6 @@ export default function SharedPage() {
     const [isUploading, setIsUploading] = useState(false); // State to track upload progress
     const [yourItems, setYourItems] = useState<Item[]>([]);
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const navigate = useNavigate();
     const [amount, setAmount] = useState(0);
 
     useEffect(() => {
@@ -71,13 +70,21 @@ export default function SharedPage() {
 
 
 
+
     const defineContent = () => {
         if (yourItems !== undefined && yourItems.length > 0) {
 
             const handlePay = () => {
 
-                navigate("/payment");
-            }
+                const paymentData = {
+                    shareCode: code,    // Replace with dynamic values
+                    amount: amount,     // Replace with dynamic values
+                };
+
+                sessionStorage.setItem("paymentData", JSON.stringify(paymentData));
+
+                window.open("/payment", "_blank");
+            };
 
             return (
                 <>

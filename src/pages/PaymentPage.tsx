@@ -1,10 +1,47 @@
-import payment from "../assets/paymentInvoice.png"
-import styles from "../styles/pages/PaymentPage.module.scss"
+import { useEffect, useState } from "react";
+import payment from "../assets/paymentInvoice.png";
+import styles from "../styles/pages/PaymentPage.module.scss";
+
 export default function PaymentPage() {
+    const [link, setLink] = useState<string | null>(null);
+
+    useEffect(() => {
+        const storedData = sessionStorage.getItem("paymentData");
+        if (storedData) {
+            const { shareCode, amount } = JSON.parse(storedData);
+
+            const getLink = async () => {
+                try {
+                    const response = await fetch(
+                        `http://138.68.73.164/api/shared/${shareCode}/pay/${amount}`
+                    );
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
+                        setLink(data.paymentLink);
+                    }
+                } catch (error) {
+                    console.error("Error fetching payment link:", error);
+                }
+            };
+
+            getLink().then();
+        }
+    }, []);
 
     return (
         <main className={styles.payment_page_ctr}>
-            <img src={payment} alt={"Payment"} className={styles.payment_img}/>
+            {/* Display static image */}
+            <img src={payment} alt="Payment" className={styles.payment_img} />
+
+            {/* Display payment link */}
+            {link ? (
+                <span className={styles.link_span}>
+                    {link}
+                </span>
+            ) : (
+                <span className={styles.link_span}>Loading payment link...</span>
+            )}
         </main>
     )
 }
