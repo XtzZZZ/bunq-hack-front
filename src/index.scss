@@ -1,0 +1,76 @@
+@use 'styles/variables';
+
+* {
+  box-sizing: border-box;
+  &>a:link {
+    text-decoration: none;
+  }
+
+  &>a:visited {
+    text-decoration: none;
+  }
+
+  &>a:hover {
+    text-decoration: none;
+  }
+
+  &>a:active {
+    text-decoration: none;
+  }
+  color: variables.$text;
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-color: variables.$background;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  padding: 0;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+main {
+  width: 760px;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  @media screen and (max-width: 820px) {
+    width: 50%;
+  }
+  @media screen and (max-width: 1100px) {
+    width: 69%;
+  }
+}
+
+
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+span {
+  display: inline-block;
+  @include variables.font-family;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+}

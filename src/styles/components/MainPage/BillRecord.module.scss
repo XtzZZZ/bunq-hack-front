@@ -1,0 +1,37 @@
+@use "../../variables";
+
+.bill_record_ctr {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  border-radius: 12px;
+  transition: background-color 0.3s ease;
+  padding: 16px 24px;
+  background-color: variables.$background_icons;
+  &:hover {
+    cursor: pointer;
+    background-color: variables.$background_icons_hover;
+  }
+}
+
+.bill_record_data {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.data_name {
+  @include variables.h6;
+}
+
+.data_date {
+  @include variables.h8;
+  color: variables.$text_secondary;
+}
+
+.arrow_icon {
+  height: 20px;
+  width: 20px;
+}

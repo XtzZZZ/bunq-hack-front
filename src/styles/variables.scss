@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+$background: #ffffff;
+$text: #222222;
+$yellow: #F5C754;
+$yellow_hover: #F8D47F;
+$yellow_light: #ffe7b1;
+$background_icons: #f8f5f0;
+$text_secondary: #A1824A;
+$background_icons_hover: #F5F0E5;
+$gray: #f3f3f3;
+
+@mixin font-family{
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 400;
+}
+
+@mixin font-family-official {
+  font-family: "DM Serif Display", sans-serif;
+}
+
+@mixin h1 {
+  @include font-family;
+  font-size: 64px;
+}
+
+@mixin h2 {
+  @include font-family;
+  font-size: 48px;
+}
+
+@mixin h3 {
+  @include font-family;
+  font-size: 40px;
+}
+
+@mixin h4 {
+  @include font-family;
+  font-size: 32px;
+}
+
+@mixin h5 {
+  @include font-family;
+  font-size: 24px;
+}
+
+@mixin h6 {
+  @include font-family;
+  font-size: 20px;
+}
+
+@mixin h7 {
+  @include font-family;
+  font-size: 18px;
+}
+
+
+@mixin h8 {
+  @include font-family;
+  font-size: 16px;
+}
+
+@mixin h9 {
+  @include font-family;
+  font-size: 14px;
+}
+
+@mixin h10 {
+  @include font-family;
+  font-size: 12px;
+}
+
+@mixin h11 {
+  @include font-family;
+  font-size: 10px;
+}
+
+
+// button mixins
+
+@mixin label {
+  @include font-family;
+  cursor: pointer;
+}
+
+@mixin btn {
+  @include font-family;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+@mixin title1 {
+  @include h4;
+  font-weight: 600;
+}
+
+@mixin title2 {
+  @include h5;
+  font-weight: 600;
+}
+
+@mixin title3 {
+  @include h6;
+  font-weight: 600;
+}

@@ -1,0 +1,79 @@
+@use '../variables';
+
+.bill_page_ctr {
+  display: flex;
+  align-items: center;
+  .page_title {
+    @include variables.title1;
+  }
+  .page_subtitle {
+    @include variables.title2;
+    margin: 12px 0 6px;
+  }
+  .page_explanation {
+    @include variables.h9;
+  }
+  gap: 24px;
+}
+
+.items_ctr {
+  width: 52%;
+}
+
+.items_list_ctr {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.share_link_ctr {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  height: 48px;
+  width: 100%;
+  border-radius: 12px;
+  background-color: variables.$background_icons;
+  margin-top: 12px;
+  padding-left: 32px;
+}
+
+
+.share_link {
+  width: 100%;
+}
+
+.copy_btn {
+  @include variables.h8;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border: none;
+  padding: 0 16px;
+  gap: 4px;
+  border-radius: 0 12px 12px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: variables.$yellow_hover;
+  &:hover {
+    background-color: variables.$yellow;
+  }
+}
+
+.back_btn {
+  display: flex;
+  background-color: variables.$yellow;
+  width: 52%;
+  justify-self: center;
+  margin-top: 24px;
+  justify-content: center;
+  height: 48px;
+  @include variables.h6;
+  align-items: center;
+  border-radius: 12px;
+}

@@ -1,0 +1,64 @@
+@use "../variables";
+
+.main_page_ctr {
+  display: flex;
+  align-items: center;
+  .page_title {
+    @include variables.title1;
+  }
+  .page_subtitle {
+    @include variables.title2;
+    margin-top: 12px;
+  }
+  gap: 24px;
+}
+
+.new_bill_btn {
+
+  @include variables.h6;
+  padding: 16px 0;
+  cursor: pointer;
+
+  width: 52%;
+  display: inline-block;
+  text-align: center;
+  background-color: variables.$yellow;
+  border: none;
+  border-radius: 12px;
+  transition: background-color 0.3s ease;
+
+
+  &:hover {
+    background-color: variables.$yellow_hover;
+  }
+}
+
+
+.account_ctr {
+  display: flex;
+  gap: 12px;
+  flex-direction: row;
+  border-radius: 12px;
+  background-color: variables.$background_icons;
+  padding: 12px 16px;
+  align-items: center;
+  align-self: flex-start;
+  margin-left: 24%;
+}
+
+.account_icon {
+  height: 20px;
+  width: 20px;
+}
+
+.account_name {
+  @include variables.h8;
+}
+
+.bills_list_ctr {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  width: 52%;
+  gap: 6px;
+}

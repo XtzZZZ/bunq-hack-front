@@ -1,0 +1,42 @@
+@use '../../variables';
+
+.item_record_ctr {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  border-radius: 12px;
+  transition: background-color 0.3s ease;
+  padding: 0 24px;
+  height: 48px;
+  background-color: variables.$background_icons;
+
+}
+
+.item_record_data {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.item_record_data_text_ctr {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  gap: 16px;
+}
+
+.item_record_data_text {
+  @include variables.h8;
+  display: flex;
+  height: 100%;
+  font-weight: 500;
+  align-items: center;
+  padding: 0 8px;
+}
+
