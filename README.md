@@ -1,54 +1,46 @@
-# React + TypeScript + Vite
+# Project Setup and Run Instructions
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Follow these steps to run the project on a new PC:
 
-Currently, two official plugins are available:
+## Prerequisites
+1. Install **Node.js** (LTS version recommended, e.g., 18.x) from [Node.js official website](https://nodejs.org/).
+2. Install **npm** (comes with Node.js installation).
+3. Ensure **Git** is installed for managing the repository files.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Steps to Run the Project
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. **Clone the Repository**
+```shell script
+git clone <repository-url>
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Replace `<repository-url>` with the actual URL of your Git repository.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+2. **Navigate to the Project Directory**
+```shell script
+cd <project-folder>
 ```
+
+Replace `<project-folder>` with the actual project folder name.
+
+3. **Install Dependencies**
+   Run the following command to install all necessary packages:
+```shell script
+npm install
+```
+
+
+4. **Start the Development Server**
+   Start the development server with:
+```shell script
+npm run dev
+```
+
+This will start the server and provide a localhost URL (e.g., `http://localhost:5173`) to access the application in the browser.
+
+## Key Notes
+- The **backend is already hosted** and ready to be used with the frontend. No additional backend setup is necessary.
+- Ensure you have an active internet connection to interact with the hosted backend APIs.
+- Modify environment variables if required (e.g., API endpoint) before starting the project.
+
+For any issues during setup or runtime, refer to logs or contact the repository owner.
