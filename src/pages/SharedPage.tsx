@@ -86,11 +86,13 @@ export default function SharedPage() {
                 window.open("/payment", "_blank");
             };
 
+            const formattedAmount = amount.toFixed(2);
+
             return (
                 <>
                     <BillList items={yourItems} />
                     <button className={styles.shared_page_btn} onClick={handlePay}>
-                        Pay {amount}€
+                        <span>Pay {formattedAmount}€</span>
                     </button>
                 </>
             )
