@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/pages/CreateBillPage.module.scss";
+import config from "../config/config";
 
 export default function CreateBillPage() {
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -39,7 +40,7 @@ export default function CreateBillPage() {
 
         try {
             // Step 1: Send the name to create a new bill
-            const createBillResponse = await fetch("http://138.68.73.164/api/bills", {
+            const createBillResponse = await fetch(`${config.apiBaseUrl}/api/bills`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -66,7 +67,7 @@ export default function CreateBillPage() {
             formData.append("receipt", file);
 
             const uploadReceiptResponse = await fetch(
-                `http://138.68.73.164/api/bills/${billId}/receipts`,
+                `${config.apiBaseUrl}/api/bills/${billId}/receipts`,
                 {
                     method: "POST",
                     body: formData,

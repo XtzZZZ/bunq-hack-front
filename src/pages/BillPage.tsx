@@ -6,6 +6,7 @@ import { FaCheck } from 'react-icons/fa';
 
 import Item from "../interfaces/Item.ts";
 import BillList from "../components/BillList.tsx";
+import config from "../config/config.ts";
 
 export default function BillPage() {
     const id = useParams().id;
@@ -18,7 +19,7 @@ export default function BillPage() {
 
     useEffect(() => {
         const fetchBill = async () => {
-            const response = await fetch(`http://138.68.73.164/api/bills/${id}`);
+            const response = await fetch(`${config.apiBaseUrl}/api/bills/${id}`);
             const data = await response.json();
             setItems(data.allItems);
             setName(data.name);
@@ -42,7 +43,7 @@ export default function BillPage() {
 
     const handleDelete = () => {
         const deleteBill = async () => {
-            await fetch(`http://138.68.73.164/api/bills/${id}`, {
+            await fetch(`${config.apiBaseUrl}/api/bills/${id}`, {
                 method: "DELETE"
             }).then(() => {console.log("Bill deleted")}).catch(e => console.error(e));
 

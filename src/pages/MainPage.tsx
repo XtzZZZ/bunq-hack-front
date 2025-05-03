@@ -2,6 +2,7 @@ import styles from '../styles/pages/MainPage.module.scss'
 import BillRecord from "../components/MainPage/BillRecord.tsx";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import config from "../config/config.ts";
 
 interface APIResponse {
     id: string;
@@ -42,7 +43,7 @@ export default function MainPage() {
 
         const fetchBills = async () => {
             try {
-                const response = await fetch("http://138.68.73.164/api/bills");
+                const response = await fetch(`${config.apiBaseUrl}/api/bills`);
                 const data = await response.json();
                 const processedBills = data.map((bill: APIResponse) => ({
                     id: bill.id, // Use the top-level id

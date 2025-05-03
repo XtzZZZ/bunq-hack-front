@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import Item from "../interfaces/Item.ts";
 import BillList from "../components/BillList.tsx";
+import config from "../config/config.ts";
 
 export default function SharedPage() {
     const { code } = useParams();
@@ -14,7 +15,7 @@ export default function SharedPage() {
 
     useEffect(() => {
         const getItems = async () => {
-            const response = await fetch(`http://138.68.73.164/api/shared/${code}`);
+            const response = await fetch(`${config.apiBaseUrl}/api/shared/${code}`);
             const data = await response.json();
             setItemsTotal(data.allItems);
         };
@@ -38,7 +39,7 @@ export default function SharedPage() {
 
             try {
                 const response = await fetch(
-                    `http://138.68.73.164/api/shared/${code}/match`,
+                    `${config.apiBaseUrl}/api/shared/${code}/match`,
                     {
                         method: "POST",
                         body: formData,

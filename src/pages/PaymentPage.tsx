@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import payment from "../assets/paymentInvoice.png";
 import styles from "../styles/pages/PaymentPage.module.scss";
+import config from "../config/config.ts";
 
 export default function PaymentPage() {
     const [link, setLink] = useState<string | null>(null);
@@ -13,7 +14,7 @@ export default function PaymentPage() {
             const getLink = async () => {
                 try {
                     const response = await fetch(
-                        `http://138.68.73.164/api/shared/${shareCode}/pay/${amount}`
+                        `${config.apiBaseUrl}/api/shared/${shareCode}/pay/${amount}`
                     );
                     if (response.ok) {
                         const data = await response.json();
