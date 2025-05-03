@@ -1,5 +1,4 @@
 import styles from '../styles/pages/MainPage.module.scss'
-import { GoPerson } from "react-icons/go";
 import BillRecord from "../components/MainPage/BillRecord.tsx";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
@@ -37,8 +36,6 @@ interface Bill {
 }
 
 export default function MainPage() {
-    const account_name = 'Maxim Savochkin'
-
     const [bills, setBills] = useState<Bill[]>([]);
     const navigate = useNavigate();
     useEffect(() => {
@@ -68,12 +65,6 @@ export default function MainPage() {
             <button className={styles.new_bill_btn} onClick={() => {navigate("/bills")}}>
                 New bill
             </button>
-            <div className={styles.account_ctr}>
-                <GoPerson className={styles.account_icon}/>
-                <span className={styles.account_name}>
-                    {account_name}
-                </span>
-            </div>
             <span className={styles.page_subtitle}>
                 Your bills:
             </span>
