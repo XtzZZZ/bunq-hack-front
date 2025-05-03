@@ -75,10 +75,7 @@ export default function SharedPage() {
         if (yourItems !== undefined && yourItems.length > 0) {
 
             const handlePay = () => {
-                const getLink = async () => {
-                    await fetch(`http://138.68.73.164/api/shared/${code}/pay/${amount}`)
-                }
-                getLink().then();
+
                 navigate("/payment");
             }
 
