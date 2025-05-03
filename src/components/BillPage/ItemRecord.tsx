@@ -8,15 +8,15 @@ interface ItemRecordProps {
 }
 
 export default function ItemRecord({name, price, quantity, id} : Readonly<ItemRecordProps>) {
-    console.log(name, price, quantity);
     return (
-        <div className={styles.item_record_ctr} style={id === "description" ? {background: "none"} : {}}>
+        <div className={styles.item_record_ctr} style={id === "description" ? {background: "none", height: "fit-content",
+            marginBottom: "8px"} : {}}>
             <div className={styles.item_record_data}>
                 <span className={styles.item_record_data_text}>
                     {name}
                 </span>
                 <div className={styles.item_record_data_text_ctr}>
-                    <div className={styles.item_record_data_text}>
+                    <div className={styles.item_record_data_text} >
                         {quantity}
                     </div>
                     <div className={styles.item_record_data_text}>

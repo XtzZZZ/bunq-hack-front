@@ -1,21 +1,15 @@
 import styles from '../styles/pages/BillPage.module.scss'
 import {useEffect, useRef, useState} from "react";
-import ItemRecord from "../components/BillPage/ItemRecord.tsx";
-import {NavLink, useParams} from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import {GoCopy} from "react-icons/go";
 import { FaCheck } from 'react-icons/fa';
 
-interface Item {
-    id: string; // Unique identifier for the item
-    name: string; // Name of the item, e.g., "California Roll"
-    price: number; // Price of the item
-    quantity: number; // Quantity of the item purchased
-    assignedToUserId: string | null; // User ID if the item is assigned to a user, null otherwise
-    matched: boolean; // Whether the item has been matched
-}
+import Item from "../interfaces/Item.ts";
+import BillList from "../components/BillList.tsx";
 
 export default function BillPage() {
     const id = useParams().id;
+    const navigate = useNavigate();
     const shareLinkRef = useRef<HTMLSpanElement>(null);
     const [isCopied, setIsCopied] = useState<boolean>(false);
     const [shareCode, setShareCode] = useState<string>("");
@@ -24,7 +18,7 @@ export default function BillPage() {
 
     useEffect(() => {
         const fetchBill = async () => {
-            const response = await fetch(`http://localhost:8080/api/bills/${id}`);
+            const response = await fetch(`http://138.68.73.164/api/bills/${id}`);
             const data = await response.json();
             setItems(data.allItems);
             setName(data.name);
@@ -46,6 +40,16 @@ export default function BillPage() {
             .catch((err) => console.error("Failed to copy:", err));
     };
 
+    const handleDelete = () => {
+        const deleteBill = async () => {
+            await fetch(`http://138.68.73.164/api/bills/${id}`, {
+                method: "DELETE"
+            }).then(() => {console.log("Bill deleted")}).catch(e => console.error(e));
+
+        }
+        deleteBill().then();
+        navigate("/");
+    }
 
     return (
         <main className={styles.bill_page_ctr}>
@@ -53,20 +57,14 @@ export default function BillPage() {
 
             <div className={styles.items_ctr}>
                 <span className={styles.page_subtitle}>Items:</span>
-
-                <ItemRecord name={"Name"} price={"Price"} quantity={"Quantity"} id={"description"}/>
-                <div className={styles.items_list_ctr}>
-                    {items.map((item) => {
-                        return <ItemRecord name={item.name} price={item.price} quantity={item.quantity} key={item.id}/>
-                    })}
-                </div>
+                <BillList items={items}/>
                 <span className={styles.page_subtitle}>Share:</span>
                 <span className={styles.page_explanation}>Send this link to your friends
                     so they can pay their share.
                 </span>
                 <div className={styles.share_link_ctr}>
                     <span className={styles.share_link} ref={shareLinkRef} >
-                        {shareCode}
+                        localhost:5173/shared/{shareCode}
                     </span>
                     <button
                         className={styles.copy_btn}
@@ -83,6 +81,7 @@ export default function BillPage() {
                         )}
                     </button>
                 </div>
+                <button className={styles.back_btn} onClick={handleDelete}>Delete bill</button>
                 <NavLink to="/" className={styles.back_btn}>Back to bills</NavLink>
             </div>
         </main>

@@ -45,7 +45,7 @@ export default function MainPage() {
 
         const fetchBills = async () => {
             try {
-                const response = await fetch("http://localhost:8080/api/bills");
+                const response = await fetch("http://138.68.73.164/api/bills");
                 const data = await response.json();
                 const processedBills = data.map((bill: APIResponse) => ({
                     id: bill.id, // Use the top-level id

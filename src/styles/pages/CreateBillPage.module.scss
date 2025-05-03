@@ -1,0 +1,64 @@
+@use '../variables';
+
+.create_bill_page_ctr {
+  display: flex;
+  align-items: center;
+
+  .page_title {
+    @include variables.title1;
+  }
+  .page_subtitle {
+    @include variables.title2;
+    margin: 12px 0 0;
+  }
+}
+
+.bill_form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 52%;
+  align-items: center;
+}
+
+.name_input {
+  background-color: variables.$background_icons;
+  border-radius: 12px;
+  height: 48px;
+  width: 100%;
+  padding: 0 16px;
+  border: none;
+}
+
+.form_btn {
+  @include variables.h8;
+  background-color: variables.$yellow;
+  border-radius: 12px;
+  height: 48px;
+  width: 48%;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: variables.$yellow_hover;
+  }
+}
+
+.submit_btn {
+  @include variables.h7;
+  background-color: variables.$yellow;
+  border-radius: 12px;
+  padding: 16px;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: variables.$yellow_hover;
+  }
+}
+
+.upload_feedback {
+  @include variables.h9;
+  margin-bottom: 12px;
+}

@@ -1,67 +1,152 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/pages/CreateBillPage.module.scss";
 
 export default function CreateBillPage() {
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [name, setName] = useState<string>(""); // State to store the name input
+    const [isSubmitting, setIsSubmitting] = useState(false); // Loading state
+    const [uploadedFileName, setUploadedFileName] = useState<string | null>(null); // State for uploaded file name
     const navigate = useNavigate();
 
-    // Function to trigger file picker
+    // Trigger file picker
     const handleChoosePhotoClick = () => {
-        fileInputRef.current?.click(); // Simulates a click on the hidden file input
+        fileInputRef.current?.click();
     };
 
-    // Function to handle file selection and upload
-    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0]; // Get a selected file
-        if (!file) return;
+    // Handle file input change
+    const handleFileChange = () => {
+        const file = fileInputRef.current?.files?.[0];
+        if (file) {
+            setUploadedFileName(file.name); // Update state with file name
+        }
+    };
 
-        // Create form data with the selected file
-        const formData = new FormData();
-        formData.append("file", file);
+    // Primary form submission
+    const handleFormSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
+
+        // Prevent submission if already in progress
+        if (isSubmitting) return;
+
+        // Validate name field
+        if (!name.trim()) {
+            alert("Please enter a valid name.");
+            return;
+        }
+
+        setIsSubmitting(true);
 
         try {
-            // Send the file to the backend
-            const response = await fetch("http://localhost:8080/api/bills", {
+            // Step 1: Send the name to create a new bill
+            const createBillResponse = await fetch("http://138.68.73.164/api/bills", {
                 method: "POST",
-                body: formData,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ name }),
             });
 
-            if (!response.ok) {
-                throw new Error("Failed to upload file");
+            if (!createBillResponse.ok) {
+                throw new Error("Failed to create bill.");
             }
 
-            // Assume backend returns a JSON with an ID or similar data
-            const data = await response.json();
+            const { id: billId } = await createBillResponse.json();
 
-            // Navigate to the new page (assumes data.id exists in response)
-            navigate(`/bills/${data.id}`);
+            // Step 2: Validate the file existence before uploading
+            const file = fileInputRef.current?.files?.[0];
+            if (!file) {
+                alert("Bill created! You must upload an image next.");
+                navigate(`/bills/${billId}`); // Redirect to the bill details page
+                return;
+            }
+
+            // Step 3: Upload the image to the newly created bill
+            const formData = new FormData();
+            formData.append("receipt", file);
+
+            const uploadReceiptResponse = await fetch(
+                `http://138.68.73.164/api/bills/${billId}/receipts`,
+                {
+                    method: "POST",
+                    body: formData,
+                }
+            );
+
+            if (!uploadReceiptResponse.ok) {
+                throw new Error("Failed to upload receipt.");
+            }
+
+
+            navigate(`/bills/${billId}`);
         } catch (error) {
-            console.error("Error uploading file:", error);
-            alert("Failed to upload file. Please try again.");
+            console.error("Error:", error);
+            if (error instanceof Error) {
+                alert(error.message ?? "An error occurred. Please try again.");
+            } else {
+                alert("An error occurred. Please try again.");
+            }
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
     return (
         <main className={styles.create_bill_page_ctr}>
-            <span className={styles.page_title}>Upload to Create Bill</span>
+            <span className={styles.page_title}>Create a New Bill</span>
 
-            <div>
+            {/* Form with Name Input and File Upload */}
+            <form onSubmit={handleFormSubmit} className={styles.bill_form}>
 
-            </div>
-            <input
-                type="file"
-                ref={fileInputRef}
-                style={{ display: "none" }}
-                onChange={handleFileChange}
-            />
+            {/* Name Input */}
+                <label htmlFor="billName" className={styles.page_subtitle}>
+                    Bill Name:
+                </label>
+                <input
+                    id="billName"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className={styles.name_input}
+                    placeholder="Enter bill name..."
+                    required
+                />
 
-            <button
-                className={styles.upload_btn}
-                onClick={handleChoosePhotoClick}
-            >
-                Choose photo
-            </button>
+                {/* File Upload Input */}
+                <input
+                    type="file"
+                    ref={fileInputRef}
+                    style={{ display: "none" }}
+                    accept="image/*"
+                    id="fileInput"
+                    onChange={handleFileChange} // File change handler
+                />
+
+                {/* File Upload Button */}
+                <label htmlFor="fileInput" className={styles.page_subtitle}>Upload a receipt:</label>
+                <button
+                    type="button"
+                    onClick={handleChoosePhotoClick}
+                    className={styles.form_btn}
+                >
+                    Choose a File
+                </button>
+
+                {/* Display uploaded file name */}
+                {uploadedFileName && (
+                    <span className={styles.upload_feedback}>1 file uploaded</span>
+                )}
+
+                {/* Submit Button */}
+                <button
+                    type="submit"
+                    className={styles.submit_btn}
+                    disabled={isSubmitting}
+                >
+                    {isSubmitting ? "Submitting..." : "Submit"}
+                </button>
+
+            </form>
         </main>
     );
 }

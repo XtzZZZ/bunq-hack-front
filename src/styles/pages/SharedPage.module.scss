@@ -1,0 +1,36 @@
+@use '../variables';
+
+.shared_page_ctr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .page_title {
+    @include variables.title1;
+  }
+  .page_subtitle {
+    @include variables.title3;
+  }
+}
+
+.page_content {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 52%;
+  align-items: center;
+}
+
+.shared_page_btn {
+  display: flex;
+  background-color: variables.$yellow;
+  width: 52%;
+  justify-self: center;
+  justify-content: center;
+  height: 48px;
+  @include variables.h7;
+  align-items: center;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+}
