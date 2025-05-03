@@ -1,7 +1,5 @@
-// src/config/config.ts
 const config = {
-  apiBaseUrl: "https://buddybillderback.netlify.app",
-  // apiBaseUrl: "http://localhost:8080",
+  apiBaseUrl: "http://138.68.73.164", // Use the IP address
 };
 
 export default config;
