@@ -12,6 +12,7 @@ export default function SharedPage() {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
     const [amount, setAmount] = useState(0);
+
     useEffect(() => {
         const getItems = async () => {
             const response = await fetch(`http://138.68.73.164/api/shared/${code}`);
