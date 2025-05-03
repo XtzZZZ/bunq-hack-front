@@ -11,7 +11,7 @@ export default function SharedPage() {
     const [yourItems, setYourItems] = useState<Item[]>([]);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
-    let amount = 0;
+    const [amount, setAmount] = useState(0);
     useEffect(() => {
         const getItems = async () => {
             const response = await fetch(`http://138.68.73.164/api/shared/${code}`);
@@ -53,8 +53,12 @@ export default function SharedPage() {
                 // Successfully matched items
                 const data = await response.json();
                 setYourItems(data);
-                const price = data.price;
-                amount += price;
+                let total = 0;
+                for (const item of data) {
+                    total += item.price;
+                }
+                setAmount(total);
+
             } catch (error) {
                 console.error("Error uploading order photos:", error);
                 alert("An error occurred while uploading. Please try again.");
